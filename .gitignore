@@ -1,0 +1,4 @@
+.DS_Store
+*.aws
+botdemo/test
+botdemo/.serverless

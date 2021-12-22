@@ -1,0 +1,26 @@
+service: botdemo
+frameworkVersion: '2'
+
+provider:
+  name: aws
+  runtime: go1.x
+  lambdaHashingVersion: 20201221
+  region: ap-northeast-1
+  stage: dev
+  environment:
+    CHANNEL_SECRET: ${ssm:CHANNEL_SECRET~true}
+    CHANNEL_TOKEN: ${ssm:CHANNEL_TOKEN~true}
+
+package:
+  patterns:
+    - '!./**'
+    - ./bin/**
+
+functions:
+  bot:
+    handler: bin/bot
+    events:
+      - http:
+          path: callback
+          method: post
+          cors: true
